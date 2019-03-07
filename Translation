@@ -1,0 +1,146 @@
+
+# *****************************************************
+# Marcel Maxwell
+# Translation
+# This file implements a client for receiving the file
+# sent using sendfile(). The server receives a file and
+# prints it's contents.
+# *****************************************************
+
+import Tkinter as tk
+import socket
+import os
+import sys
+
+class Translator(tk.Tk)
+	def __init__(self, *args, **kwargs):
+
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self)
+
+        container.pack(side="top", fill="both", expand = True)
+
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        self.frames = {}
+
+        for F in (StartPage, PageOne, PageTwo):
+            frame = F(container, self)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame(StartPage)
+
+    def show_frame(self, cont):
+        frame = self.frames[cont]
+        frame.tkraise()
+
+    def chooseFile(self, fileNameBox):
+        global fileName
+        #makes list from user selection
+        fileName = filedialog.askopenfilenames(initialdir="folderName", title="Select file",  filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
+        getFiles = list(fileName)
+        listlength = len(getFiles)
+
+        global filePath, fileList
+
+        filePath = []
+        fileList = []
+
+        #separate lists to split path and filename
+        for i in range(0, listlength):
+            (tempPath, tempList) = os.path.split((getFiles[i]))
+            filePath.append(tempPath), fileList.append(tempList)
+
+        #prints filename to make label less messy
+        for i in range(0, listlength):
+            fileNameBox.insert(tk.END, str(i) + ". " + fileList[i] + '\n')
+
+        for i in range(0, len(fileList)):
+            print (str(i) + ". " + fileList[i] + '\n')
+
+	def updateJukeList(self, jukelistbox):
+        jukelistbox.delete(0, tk.END)
+        songfiles_path = (sys.path[0] + '\RNN\music_outputs')
+        songfiles = [f for f in os.listdir(songfiles_path)]
+        for i in range(0, len(songfiles)):
+            jukelistbox.insert(tk.END, str(i + 1) + ". " + songfiles[i])
+
+    def createSongList(self):
+        songList = []
+        for i in range(0, len(filePath)):
+            songList.append(filePath[i] + '/' + fileList[i])
+        return songList
+	
+	fdlg = FileDialog.LoadFileDialog(root, title="Choose A File")
+	fname = fdlg.go() # opt args: dir_or_file=os.curdir, pattern="*", default="", key=None)
+	if file == None: # user cancelled
+	#sets the button information, location, and command
+	ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=3, sticky=W)
+	
+	#adds padding to the sides of the widgets
+	#sets cursor to the variable space
+	#sets the keybinding for the button and function of what to use 
+	for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+	feet_entry.focus() 
+	root.bind('<Return>', calculate)
+	
+	'''
+	button = ttk.Button(parent, text='Okay', command=submitForm)
+	button.configure()
+	{'cursor': ('cursor', 'cursor', 'Cursor', '', ''), 'style': ('style', 'style', 'Style', '', ''), 
+	'default': ('default', 'default', 'Default', <index object at 0x00DFFD10>, <index object at 0x00DFFD10>), 
+	'text': ('text', 'text', 'Text', '', 'goodbye'), 'image': ('image', 'image', 'Image', '', ''), 
+	'class': ('class', '', '', '', ''), 'padding': ('padding', 'padding', 'Pad', '', ''), 
+	'width': ('width', 'width', 'Width', '', ''), 
+	'state': ('state', 'state', 'State', <index object at 0x0167FA20>, <index object at 0x0167FA20>), 
+	'command': ('command', 'command' , 'Command', '', 'buttonpressed'), 
+	'textvariable': ('textvariable', 'textVariable', 'Variable', '', ''), 
+	'compound': ('compound', 'compound', 'Compound', <index object at 0x0167FA08>, <index object at 0x0167FA08>), 
+	'underline': ('underline', 'underline', 'Underline', -1, -1), 
+	'takefocus': ('takefocus', 'takeFocus', 'TakeFocus', '', 'ttk::takefocus')}
+	button.state(['disabled'])            # set the disabled flag, disabling the button
+	button.state(['!disabled'])           # clear the disabled flag
+	button.instate(['disabled'])          # return true if the button is disabled, else false
+	button.instate(['!disabled'])         # return true if the button is not disabled, else false
+	button.instate(['!disabled'], cmd)    # execute 'cmd' if the button is not disabled
+	Note that these commands accept an array of state flags as their argument.
+
+	l.bind('<Enter>', lambda e: l.configure(text='Moved mouse inside'))
+	l.bind('<Leave>', lambda e: l.configure(text='Moved mouse outside'))
+	l.bind('<1>', lambda e: l.configure(text='Clicked left mouse button'))
+	l.bind('<Double-1>', lambda e: l.configure(text='Double clicked'))
+	l.bind('<B3-Motion>', lambda e: l.configure(text='right button drag to %d,%d' % (e.x, e.y)))
+	http://www.tcl.tk/man/tcl8.5/TkCmd/bind.htm
+	
+	frame = ttk.Frame(parent)
+	frame['padding'] = (5,10)
+	A single number specifies the same padding all the way around,
+	a list of two numbers lets you specify the horizontal then the vertical padding,
+	and a list of four numbers lets you specify the left, top, right and bottom padding, in that order
+	
+	label = ttk.Label(parent, text='Full name:')
+	image = PhotoImage(file='myimage.gif')
+	label['image'] = image
+	
+	resultsContents = StringVar()
+	label['textvariable'] = resultsContents
+	resultsContents.set('New value to display')
+	
+	measureSystem = StringVar()
+	check = ttk.Checkbutton(parent, text='Use Metric', 
+			command=metricChanged, variable=measureSystem,
+			onvalue='metric', offvalue='imperial')
+			
+	Just incase the system doesn't read anything
+	check.instate(['alternate'])
+	
+	username = StringVar()
+	name = ttk.Entry(parent, textvariable=username)
+	
+	print('current value is %s' % name.get())
+	name.delete(0,'end')          # delete between two indices, 0-based
+	name.insert(0, 'your name')   # insert new text at a given index
+	'''
+	
