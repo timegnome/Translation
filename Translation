@@ -7,12 +7,56 @@
 # prints it's contents.
 # *****************************************************
 
-import Tkinter as tk
+import tkinter as tk
+from tkinter import ttk
 import socket
 import os
 import sys
+from tkinter import filedialog
+from win32api import GetSystemMetrics
 
 class Translator(tk.Tk)
+	def __init__(self, *args, **kwargs):
+
+		screenWidth = GetSystemMetrics(0)
+		screenHeight = GetSystemMetrics(1)
+		win = Toplevel(containter)
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self, borderwidth = 2, relief = "solid", width = screenWidth * .75, height = screenHeight * .75)
+		container.option_add('*tearOff', FALSE)
+		toolBar = Menu(win)
+		win['menu'] = toolBar
+		translation = tk.Frame(container)
+		original = tk.Frame(container)
+		statistics = tk.Frame(container)
+		
+		container.grid(column = 0, row = 0, columnspan = 3, rowspan = 3, sticky =(N,S, E, W))
+		toolBar.grid(column = 0, row = 0, columnspan = 3, sticky =(N, E, W))
+		statistics.grid(column = 0, row = 2, rowspan = 3, sticky =(S, W))
+		translation.grid(column = 1, row = 2, columnspan = 3, rowspan = 3, sticky =(S, E, W))
+		original.grid(column = 2, row = 2, columnspan = 3, rowspan = 3, sticky =(S, E))
+		
+		container.grid_columnconfigure(0, weight = 1)
+		container.grid_rowconfigure(0, weight = 1)
+		statisticsgrid_columnconfigure(0, weight = 0)
+		statistics.grid_rowconfigure(0, weight = 1)
+		toolBar.grid_columnconfigure(0, weight = 1)
+		toolBar.grid_rowconfigure(0, weight = 1)
+		translation.grid_columnconfigure(0, weight = 3)
+		translation.grid_rowconfigure(0, weight = 1)
+		original.grid_columnconfigure(0, weight = 2)
+		original.grid_rowconfigure(0, weight = 1)
+		
+		menu_file = Menu(toolBar)
+		menu_edit = Menu(toolBar)
+		toolBar.add_cascade(menu=menu_file, label='File')
+		toolBar.add_cascade(menu=menu_edit, label='Edit')
+		
+		menu_file.add_command(label='New', command=newFile)
+		menu_file.add_command(label='Open...', command=openFile)
+		menu_file.add_command(label='Close', command=closeFile)
+		menu_file.add_separator()
+		
 	def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)
@@ -142,5 +186,210 @@ class Translator(tk.Tk)
 	print('current value is %s' % name.get())
 	name.delete(0,'end')          # delete between two indices, 0-based
 	name.insert(0, 'your name')   # insert new text at a given index
+	http://www.tcl.tk/man/tcl8.5/TkCmd/ttk_entry.htm
+	
+	countryvar = StringVar()
+	country = ttk.Combobox(parent, textvariable=countryvar)
+	country.bind('<<ComboboxSelected>>', function)
+	country['values'] = ('USA', 'Canada', 'Australia')
+	
+	def selfdestroy(event):  # using the widget attributes of the event object
+    event.widget.destroy()  # this callback destroys a widget
+     
+	def selfremove(event):   #  this callback removes but saves a widget
+    event.widget.grid_remove()
+     
+	def brecover(self):  #  this callback recovers a removed widget - regrids them
+    b3.grid(column=0,row=2,padx=10, pady=10, ipadx=5, ipady=5, sticky=W)
+    b4.grid(column=0,row=3,padx=10, pady=10, ipadx=5, ipady=5, sticky=W)
+	
+	l = Listbox(root, height=5)
+	l.grid(column=0, row=0, sticky=(N,W,E,S))
+	s = ttk.Scrollbar(root, orient=VERTICAL, command=l.yview)
+	s.grid(column=1, row=0, sticky=(N,S))
+	l['yscrollcommand'] = s.set
+	ttk.Sizegrip().grid(column=1, row=1, sticky=(S,E))
+	root.grid_columnconfigure(0, weight=1)
+	root.grid_rowconfigure(0, weight=1)
+	for i in range(1,101):
+		l.insert('end', 'Line %d of 100' % i)
+	
+	def showPopulation(*args):
+    idxs = lbox.curselection()
+    if len(idxs)==1:
+        idx = int(idxs[0])
+        code = countrycodes[idx]
+        name = countrynames[idx]
+        popn = populations[code]
+        statusmsg.set("The population of %s (%s) is %d" % (name, code, popn))
+    sentmsg.set('')
+	lbox.bind('<<ListboxSelect>>', showPopulation)
+	lbox.bind('<Double-1>', sendGift)
+	root.bind('<Return>', sendGift)
+	
+	ttk.Sizegrip(parent).grid(column=999, row=999, sticky=(S,E))
+	
+	s = ttk.Scale(parent, orient=HORIZONTAL, length=200, from_=1.0, to=100.0)
+	
+	There are several different ways you can set the current value of the scale (which must be a floating point value between the "from" and "to" values).
+	You can set (or read, to get the current value) the scale's "value" configuration option. You can link the scale to a variable using the "variable" option.
+	Or, you can call the scale's "set value" method to change the value, or the "get" method to read the current value.
+	There is a "command" configuration option, which lets you specify a script to call whenever the scale is changed. 
+	Tk will automatically append the current value of the scale as a parameter each time it invokes this script 
+	(we saw a similar thing with extra parameters being added to scrollbar callbacks and those on the widgets they scroll).
+	As with other themed widgets, you can use the "state disabled", "state !disabled" and "instate disabled" methods if you wish to prevent the user from modifying the scale.
+		
+	p = ttk.Progressbar(parent, orient=HORIZONTAL, length=200, mode='determinate')
+	
+	You can provide the total number of steps to the progressbar using the "maximum" configuration 
+	option; this is a floating point number that defaults to 100 (i.e. each step is 1%). 
+	To tell the progressbar how far along you are in the operation, you will repeatedly change the "value" configuration option. 
+	So this would start at 0, and then count upwards to the maximum value you have set. There are two slight variations on this. 
+	First, you can just store the current value for the progressbar in a variable linked to it by the progressbar's "variable" 
+	configuration option; that way, when you change the variable, the progressbar will update. The other alternative is to call
+	the progressbar's "step ?amount?" method to increment the value by the given "amount" (defaults to 1.0)
+	
+	spinval = StringVar()
+	s = Spinbox(parent, from_=1.0, to=100.0, textvariable=spinval)
+	
+	win = Toplevel(root)
+	menubar = Menu(win)
+	win['menu'] = menubar
+	
+	menu_file = Menu(toolBar)
+	menu_edit = Menu(toolBar)
+	toolBar.add_cascade(menu=menu_file, label='File')
+	toolBar.add_cascade(menu=menu_edit, label='Edit')
+		
+	menu_file.add_command(label='New', command=newFile)
+	menu_file.add_command(label='Open...', command=openFile)
+	menu_file.add_command(label='Close', command=closeFile)
+	menu_file.add_separator()
+		
+	Each menu item has associated with it a number of configuration options, in the same way widgets do, though each menu item type has a different set of relevant options. 
+	Cascade menu items have a "menu" option used to specify the submenu, command menu items have a "command" option used to specify the command to invoke when the item is selected,
+	and both have a "label" option to specify the text to display for the item.
+
+	As well as adding items to the end of menus, you can also insert them in the middle of menus via the "insert index type ?option value...?" method;
+	here "index" is the position (0..n-1) of the item you want to insert before. You can also delete a menu using the "delete index" method.
+		
+	check = StringVar()
+	menu_file.add_checkbutton(label='Check', variable=check, onvalue=1, offvalue=0)
+	radio = StringVar()
+	menu_file.add_radiobutton(label='One', variable=radio, value=1)
+	menu_file.add_radiobutton(label='Two', variable=radio, value=2)
+	
+	The "accelerator" option is used to indicate the menu accelerator that should be associated with this menu. This does not actually create the accelerator,
+	but only displays what it is next to the menu item. You still need to create a binding for the accelerator yourself
+	(e.g. on Mac OS X it is the "Command" key, on Windows and X11 it is usually the "Control" key). Example of valid accelerator options are "Command-N",
+	"Shift+Ctrl+X", and "Command-Option-B". Commonly used modifiers include "Control", "Ctrl", "Option", "Opt", "Alt", "Shift", "Command", "Cmd" and "Meta").
+	
+	It is also possible to use images in menu items, either beside the menu item's label, or replacing it altogether. To do this, you can use the "image" and
+	"compound" options, which work just like in label widgets. The value for "image" must be a Tk image object, while "compound" can have the values "bottom", "center", "left", "right", "top" or "none"
+	
+	root.tk.call('tk', 'windowingsystem') 
+	If you do supply a menubar, at the time the menubar is attached to the window, if there is not a specially named ".apple" menu (see below), Tk will provide a standard application menu,
+	named after the binary being run. It will contain an "About Tcl & Tk" item, followed by the standard menu items: preferences, the services submenu, hide/show items, and quit. Again, you don't want this.
+
+	If you supply your own ".apple" menu, when the menubar is attached to the window, it will add the standard items (preferences and onward) onto the end of any items you have added.
+	Perfect! (Items you add after the menubar is attached to the window will appear after the quit item, which, again, you don't want.)
+	
+	For Mac OS X
+	win = Toplevel(root)
+	menubar = Menu(win)
+	appmenu = Menu(menubar, name='apple')
+	menubar.add_cascade(menu=appmenu)
+	appmenu.add_command(label='About My Application')
+	appmenu.add_separator()
+	win['menu'] = menubar
+	
+	def showMyPreferencesDialog():
+		...
+		
+	root.createcommand('tk::mac::ShowPreferences', showMyPreferencesDialog)
+    ....
+	
+	root.createcommand('tk::mac::ShowPreferences', showMyPreferencesDialog)
+	
+	helpmenu = Menu(menubar, name='help')
+	menubar.add_cascade(menu=helpmenu, label='Help')
+	root.createcommand('tk::mac::ShowHelp', ...)
+	
+	windowmenu = Menu(menubar, name='window')
+	menubar.add_cascade(menu=windowmenu, label='Window')
+	
+	tk::mac::ShowPreferences	Called when the "Preferences..." menu item is selected.
+	tk::mac::ShowHelp			Called to display main online help for the application.
+	tk::mac::Quit				Called when the Quit menu item is selected, when the user is trying to shut down the system etc.
+	tk::mac::OnHide				Called when your application has been hidden.
+	tk::mac::OnShow				Called when your application is shown after being hidden.
+	tk::mac::OpenApplication	Called when your application is first opened.
+	tk::mac::ReopenApplication	Called when the user "reopens" your already-running application (e.g. clicks on it in the Dock)
+	tk::mac::OpenDocument		Called when the Finder wants the application to open one or more documents (e.g. that were dropped on it). The procedure is passed a list of pathnames of files to be opened.
+	tk::mac::PrintDocument		As with OpenDocument, but the documents should be printed rather than opened.
+	
+	For Windows
+	sysmenu = Menu(menubar, name='system')
+	menubar.add_cascade(menu=sysmenu)	
+	
+	For X11
+	menu_help = Menu(menubar, name='help')
+	menubar.add_cascade(menu=menu_help, label='Help')
+	
+	menu = Menu(root)
+	for i in ('One', 'Two', 'Three'):
+		menu.add_command(label=i)
+	if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+		root.bind('<2>', lambda e: menu.post(e.x_root, e.y_root))
+		root.bind('<Control-1>', lambda e: menu.post(e.x_root, e.y_root))
+	else:
+		root.bind('<3>', lambda e: menu.post(e.x_root, e.y_root))
+		
+	t = Toplevel(parent)
+	
+	Unlike regular widgets, you don't have to "grid" a toplevel for it to appear onscreen. Once you've created a new toplevel,
+	you can then create other widgets which are children of that toplevel, and grid them inside the toplevel. 
+	In other words, the new toplevel behaves exactly like the automatically created root window.
+	
+	window.destroy()
+	
+	window.title('New title')
+	
+	root = Tk()
+	little = ttk.Label(root, text="Little")
+	bigger = ttk.Label(root, text='Much bigger label')
+	little.grid(column=0,row=0)
+	bigger.grid(column=0,row=0)
+	root.after(2000, lambda: little.lift())
+	root.mainloop()
+	
+	from tkinter import filedialog
+	filename = filedialog.askopenfilename()
+	filename = filedialog.asksaveasfilename()
+	dirname = filedialog.askdirectory()
+	
+	window.minsize(200,100)
+	window.maxsize(500,500)
+	
+	n = ttk.Notebook(parent)
+	f1 = ttk.Frame(n)   # first page, which would get widgets gridded into it
+	f2 = ttk.Frame(n)   # second page
+	n.add(f1, text='One')
+	n.add(f2, text='Two')
+	
+	from tkinter import font
+	appHighlightFont = font.Font(family='Helvetica', size=12, weight='bold')
+	ttk.Label(root, text='Attention!', font=appHighlightFont).grid()
+	font.families()
+	The "size" option specifies the size of the font, in points. The "weight" option can be either bold or normal.
+	You can specify a "slant" of roman (normal) or italic. Finally, the boolean options "underline" and "overstrike" are available.
+	
+	text = Text(parent, width=40, height=10)
+	text.insert('end', 'new material to insert', ('highlightline', 'recent', 'warning'))
+	text.tag_configure('highlightline', background='yellow', font='helvetica 14 bold', relief='raised')
+	text.insert('end', 'first text', ('important'))
+	text.tag_configure('important', foreground='red')
+	text.insert('end', 'second text', ('important'))
+	text.tag_bind('important', '<1>', popupImportantMenu)
 	'''
 	
