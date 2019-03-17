@@ -20,13 +20,15 @@ class Translator(tk.Tk)
 
 		screenWidth = GetSystemMetrics(0)
 		screenHeight = GetSystemMetrics(1)
-		win = Toplevel(containter)
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self, borderwidth = 2, relief = "solid", width = screenWidth * .75, height = screenHeight * .75)
 		container.option_add('*tearOff', FALSE)
+		win = Toplevel(self)
 		toolBar = Menu(win)
+		window.minsize(200,100)
 		win['menu'] = toolBar
 		translation = tk.Frame(container)
+		text = Text(translation)
 		original = tk.Frame(container)
 		statistics = tk.Frame(container)
 		
@@ -57,25 +59,25 @@ class Translator(tk.Tk)
 		menu_file.add_command(label='Close', command=closeFile)
 		menu_file.add_separator()
 		
-	def __init__(self, *args, **kwargs):
-
-        tk.Tk.__init__(self, *args, **kwargs)
-        container = tk.Frame(self)
-
-        container.pack(side="top", fill="both", expand = True)
-
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
-
-        self.frames = {}
-
-        for F in (StartPage, PageOne, PageTwo):
-            frame = F(container, self)
-            self.frames[F] = frame
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame(StartPage)
-
+	def insertText(self, text)
+		text.insert('end', 'new material to insert', ('highlightline', 'recent', 'warning'))
+		text.tag_bind('important','<1>', popupMeno)
+		
+	def newFile(self, frame))
+		frame.
+	def open(self, menu)
+		menu.
+		filename = filedialog.askopenfilename()
+	def save(self, menu)
+		filename = filedialog.asksaveasfilename()
+	def directory(self, menu)
+		dirname = filedialog.askdirectory()
+	def fontChange(self,frame)
+		
+	def export(self, frame)
+		
+	def	changeText(self, frame, )
+	
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
@@ -384,6 +386,9 @@ class Translator(tk.Tk)
 	The "size" option specifies the size of the font, in points. The "weight" option can be either bold or normal.
 	You can specify a "slant" of roman (normal) or italic. Finally, the boolean options "underline" and "overstrike" are available.
 	
+	def insertText(self, text)
+		text.insert('end', 'new material to insert', ('highlightline', 'recent', 'warning'))
+		text.tag_bind('','<1>', popupMeno)
 	text = Text(parent, width=40, height=10)
 	text.insert('end', 'new material to insert', ('highlightline', 'recent', 'warning'))
 	text.tag_configure('highlightline', background='yellow', font='helvetica 14 bold', relief='raised')
