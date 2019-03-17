@@ -1,0 +1,11 @@
+# ********************************************************
+# Marcel Maxwell
+# Translator
+# This file will be the backend of the translation program
+# and will house the necessary calls and objects for the
+# translator. The file will consist of at least 2 classes
+# for the translator to operate. It will take in the 
+# desired text selected by the user and then input it into
+# the translator. The input will be linked to the output
+# word-word and sentence-sentence. This will allow for the
+# program to adapt the the users changes and corrections.
