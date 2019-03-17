@@ -42,7 +42,7 @@ class Translator(tk.Tk)
 		else:
 		win['menu'] = toolBar
 		translation = tk.Frame(container)
-		text = Text(translation, state = 'disabled', wrap = 'none')
+		text = Text(translation, state = 'disabled', wrap = 'WORD')
 		original = tk.Frame(container)
 		statistics = tk.Frame(container)
 		
