@@ -1,0 +1,36 @@
+Input data
+Form of text file
+Read sections the size of sentences
+Have list of possible translations per word
+Use google translation as the base
+Increase the amount of popularity of the translations per read through
+Input at least 50 chapters worth, at least 10 times
+Allow for the data to be viewed and exported to a .csv
+Create an app for all of this with a decent ui.
+Use either python or c++ as the base and C or something else for the UI
+Show accuracy
+Create manual
+
+Locate file: Either by manually entering the file name or by selecting it from a file search list.
+Read the file that is in the form of a text file or needs to be translated into a text file.
+When translating the text mark each word with a number and/or mark the sentence or phrase translated.
+Create a class for the translated word.
+Create a class for the translated sentence/phrase.
+Create a class for the translation of a word.
+Create a node class containing the word of the translation.
+Create a class for viewing the data of each translated word.
+Create a storage form located externally from the program.
+- Use .csv or execel documents to store translated phrases/words.
+Store and update any information in the external location after a run through of a translation.
+Allow for the ability to edit words and phrases that have been translated post running the script.
+Allow for the ability to compile the data of the translations. 
+Create a storage location of all possible translations for said novel.
+Create a storage location of each chapter translated.
+- Use a local directory or directory choosen by the user.
+Allow for the abiltiy to swap novels.
+- When swapping between novels save all changes to the documents and wipe current data on application.
+- Ask user if they would like to save changes before swapping novels or exitting from the program.
+Find a way to check grammar during translation.
+- Use a prebuilt grammar code or create one.
+Find a way to use a way to read different languages
+- Use the different types of encodings for the different languages being read.

@@ -1,0 +1,79 @@
+User story card
+Stakeholder Translator
+Priority:
+Needs a view able translated text
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to modify translated text
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to view the different options of translations
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to have translations put into a stored directory
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to have translation list of text statistics graphed.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able see user modified regions highlighted.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able modify regions in real time and reference the locations in the text.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to read multiple languages for translations.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to import or create a new translated text request.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to export translated text as either a pdf or text file. 
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to choose which text format/style is exported.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to reference the translated text to the original text.
+
+User story card
+Stakeholder Translator
+Priority:
+Needs to be able to choose different languages during the selection of a new novel or new.
+
+User story card
+Stakeholder Translator
+Priority: 
+Needs to be able to choose different bolds, italicized, or underlined words.
+
+User story card
+Stakeholder Developer
+Priority: 
+Needs to be able to story the translated network or popularity list.
+
+User story card
+Stakeholder Developer
+Priority:
+Needs to hold locally the translated list for current novel/language.
