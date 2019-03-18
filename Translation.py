@@ -15,31 +15,44 @@ from tkinter import ttk
 import socket
 import os
 import sys
-from Translator import *
+#from Translator import *
+import win32api
 from tkinter import filedialog
 from win32api import GetSystemMetrics
 
-class Translator(tk.Tk)
+class Translator(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		
 		global systemType 
 		systemType = root.tk.call('tk', 'windowingsystem')
 		screenWidth = GetSystemMetrics(0)
 		screenHeight = GetSystemMetrics(1)
-        tk.Tk.__init__(self, *args, **kwargs)
-        container = tk.Frame(self, borderwidth = 2, relief = "solid", width = screenWidth * .75, height = screenHeight * .75)
+		tk.Tk.__init__(self, *args, **kwargs)
+		container = tk.Frame(self, borderwidth = 2, relief = "solid", width = screenWidth * .75, height = screenHeight * .75)
 		container.option_add('*tearOff', FALSE)
 		window.title('Wuxai Translator')
 		win = Toplevel(self)
 		toolBar = Menu(win)
-		window.minsize(200,100)
-		if(systemType=='aqua'):
-			appmenu = Menu(menubar, name='apple')
+		quickTools = Menu(win)
+		window.minsize(screenHeight*.20,screenWidth*.15)
+		if(systemType == 'aqua'):
+			appmenu = Menu(toolBar, name='apple')
+			windowmenu = Menu(toolBar, name='window')
 			menubar.add_cascade(menu=appmenu)
 			appmenu.add_command(label='About My Application')
 			appmenu.add_separator()
+			helpmenu = Menu(toolBar, name='help')
+			menubar.add_cascade(menu=helpmenu, label='Help')
+			root.createcommand('tk::mac::ShowHelp', ...)
+	
+			menubar.add_cascade(menu=windowmenu, label='Window')
 			root.createcommand('tk::mac::ShowPreferences', showMyPreferencesDialog)
+		elif(systemType == 'windows'):
+				sysmenu = Menu(menubar, name='system')
+				menubar.add_cascade(menu=sysmenu)
 		else:
+			menu_help = Menu(menubar, name='help')
+			menubar.add_cascade(menu=menu_help, label='Help')
 		win['menu'] = toolBar
 		translation = tk.Frame(container)
 		text = Text(translation, state = 'disabled', wrap = 'WORD')
@@ -78,57 +91,60 @@ class Translator(tk.Tk)
 		
 		
 		text.tag_bind('translated', '<1>', highlight)
+	
 	def insertText(self, text, translated):
 		text['state'] = 'normal'
 		text.insert('end', ' '+translated,(translated, 'translated') )
 		text.tag_bind(translated, '<3>',  popupMeno)
 		text['state'] = 'disabled'
-	def popUpMenu(self,):
+	#def popUpMenu(self):
 	
-	def newFile(self, frame)):
-		frame.
+	#def showMyPreferencesDialog():
+	
+	#def newFile(self, frame)):
+		#frame.
 	def openFile(self, menu):
-		menu.
+	#	menu.
 		filename =  filedialog.askopenfilenames(initialdir="folderName", title="Select file",  filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
 	def saveFile(self, menu):
 		filename = filedialog.asksaveasfilename()
 	def directory(self, menu):
 		dirname = filedialog.askdirectory()
-	def fontChange(self,frame):
+	#def fontChange(self,frame):
 		
-	def export(self, frame):
+	#def export(self, frame):
 		
-	def	changeText(self, frame, ):
+	#def	changeText(self, frame, ):
 	
-    def show_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
+	def show_frame(self, cont):
+		frame = self.frames[cont]
+		frame.tkraise()
 
-    def chooseFile(self, fileNameBox):
-        global fileName
-        #makes list from user selection
-        fileName = filedialog.askopenfilenames(initialdir="folderName", title="Select file",  filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
-        getFiles = list(fileName)
-        listlength = len(getFiles)
+	def chooseFile(self, fileNameBox):
+		global fileName
+		#makes list from user selection
+		fileName = filedialog.askopenfilenames(initialdir="folderName", title="Select file",  filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
+		getFiles = list(fileName)
+		listlength = len(getFiles)
 
-        global filePath, fileList
+		global filePath, fileList
+		
+		filePath = []
+		fileList = []
+		
+		#separate lists to split path and filename
+		for i in range(0, listlength):
+			(tempPath, tempList) = os.path.split((getFiles[i]))
+			filePath.append(tempPath), fileList.append(tempList)
 
-        filePath = []
-        fileList = []
+		#prints filename to make label less messy
+		for i in range(0, listlength):
+			fileNameBox.insert(tk.END, str(i) + ". " + fileList[i] + '\n')
 
-        #separate lists to split path and filename
-        for i in range(0, listlength):
-            (tempPath, tempList) = os.path.split((getFiles[i]))
-            filePath.append(tempPath), fileList.append(tempList)
-
-        #prints filename to make label less messy
-        for i in range(0, listlength):
-            fileNameBox.insert(tk.END, str(i) + ". " + fileList[i] + '\n')
-
-        for i in range(0, len(fileList)):
-            print (str(i) + ". " + fileList[i] + '\n')
+		for i in range(0, len(fileList)):
+			print (str(i) + ". " + fileList[i] + '\n')
 	
-	fdlg = FileDialog.LoadFileDialog(root, title="Choose A File")
+	'''fdlg = FileDialog.LoadFileDialog(root, title="Choose A File")
 	fname = fdlg.go() # opt args: dir_or_file=os.curdir, pattern="*", default="", key=None)
 	if file == None: # user cancelled
 	#sets the button information, location, and command
@@ -140,4 +156,5 @@ class Translator(tk.Tk)
 	for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 	feet_entry.focus() 
 	root.bind('<Return>', calculate)
-	
+	'''
+	text = Translator()

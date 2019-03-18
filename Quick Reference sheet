@@ -185,8 +185,6 @@
 	root.createcommand('tk::mac::ShowPreferences', showMyPreferencesDialog)
     ....
 	
-	root.createcommand('tk::mac::ShowPreferences', showMyPreferencesDialog)
-	
 	helpmenu = Menu(menubar, name='help')
 	menubar.add_cascade(menu=helpmenu, label='Help')
 	root.createcommand('tk::mac::ShowHelp', ...)
