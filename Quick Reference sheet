@@ -268,4 +268,17 @@
 	text.tag_configure('important', foreground='red')
 	text.insert('end', 'second text', ('important'))
 	text.tag_bind('important', '<1>', popupImportantMenu)
+	
+	fdlg = FileDialog.LoadFileDialog(root, title="Choose A File")
+	fname = fdlg.go() # opt args: dir_or_file=os.curdir, pattern="*", default="", key=None)
+	if file == None: # user cancelled
+	#sets the button information, location, and command
+	ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=3, sticky=W)
+	
+	#adds padding to the sides of the widgets
+	#sets cursor to the variable space
+	#sets the keybinding for the button and function of what to use 
+	for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+	feet_entry.focus() 
+	root.bind('<Return>', calculate)
 	'''
