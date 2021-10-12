@@ -200,7 +200,8 @@ class frameTranslate(tk.Tk):
 	# Input: User selected file, the path name of the directory
 	# Output: Opens up the translated text and original in a form of tab using Notepad widget
 	def __openFile(self, menu):
-	#	menu.
+		#menu.
+		#filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
 		filename =  filedialog.askopenfilenames(initialdir="folderName", title="Select file")
 	
 	# Saves the file pf the translated text and its original in the form of a .csv or compressed into a 
@@ -245,30 +246,6 @@ class frameTranslate(tk.Tk):
 	def changeText(self, frame ):
 		temp=1
 	
-	def chooseFile(self, fileNameBox):
-		global fileName
-		#makes list from user selection
-		fileName = filedialog.askopenfilenames(initialdir="folderName", title="Select file",  filetypes=(("MIDI files", "*.mid *.midi"), ("all files", "*.*")))
-		getFiles = list(fileName)
-		listlength = len(getFiles)
-
-		global filePath, fileList
-		
-		filePath = []
-		fileList = []
-		
-		#separate lists to split path and filename
-		for i in range(0, listlength):
-			(tempPath, tempList) = os.path.split((getFiles[i]))
-			filePath.append(tempPath), fileList.append(tempList)
-
-		#prints filename to make label less messy
-		for i in range(0, listlength):
-			fileNameBox.insert(tk.END, str(i) + ". " + fileList[i] + '\n')
-
-		for i in range(0, len(fileList)):
-			print (str(i) + ". " + fileList[i] + '\n')
-
 # Customer Canvas widget to attach line numbers for a text widget
 # Author : Bryan Oakley
 # Posted on https://stackoverflow.com/questions/16369470/tkinter-adding-line-number-to-text-widget
